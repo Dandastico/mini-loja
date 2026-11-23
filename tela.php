@@ -10,7 +10,8 @@
   <h1>Mini Loja</h1>
 
   <h2><?= $produto ? 'Editar produto' : 'Novo produto' ?></h2>
-  <form method="post" action="cadastro.php">
+  <!-- NOVO: sem o enctype, o arquivo não viaja (chega só o nome dele) -->
+  <form method="post" action="cadastro.php" enctype="multipart/form-data">
     <!-- o id escondido diz ao controle qual produto editar (vazio = produto novo) -->
     <input type="hidden" name="id" value="<?= $produto['id'] ?? '' ?>">
 
@@ -19,6 +20,9 @@
 
     <label for="preco">Preço (R$)</label>
     <input id="preco" name="preco" type="number" step="0.01" min="0" required value="<?= $produto['preco'] ?? '' ?>">
+
+    <label for="imagem">Foto do produto</label>
+    <input id="imagem" name="imagem" type="file" accept="image/*">
 
     <button type="submit"><?= $produto ? 'Salvar alterações' : 'Cadastrar' ?></button>
     <?php if ($produto): ?>
@@ -30,6 +34,11 @@
   <ul>
     <?php foreach ($produtos as $item): ?>
       <li>
+        <?php if ($item['imagem']): ?>
+          <img src="uploads/<?= htmlspecialchars($item['imagem']) ?>" alt="" width="60">
+        <?php else: ?>
+          <span>📦 sem foto</span>
+        <?php endif; ?>
         <?= htmlspecialchars($item['nome']) ?> · R$ <?= number_format($item['preco'], 2, ',', '.') ?>
         <a href="cadastro.php?editar=<?= $item['id'] ?>">Editar</a>
         <form method="post" action="cadastro.php" style="display: inline">
