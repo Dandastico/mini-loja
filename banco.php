@@ -97,3 +97,10 @@ function buscarFuncionario(string $email): ?array
     $stmt->execute([':email' => $email]);
     return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
 }
+
+// NOVO: quantos funcionários a loja tem (zero = o primeiro cadastro é livre)
+function contarFuncionarios(): int
+{
+    $pdo = conectar();
+    return (int) $pdo->query('SELECT COUNT(*) FROM funcionarios')->fetchColumn();
+}

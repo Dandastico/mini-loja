@@ -9,6 +9,16 @@
   <p><a href="index.html">← Página inicial</a></p>
   <h1>Mini Loja</h1>
 
+  <!-- NOVO: quem está logado vê o próprio nome; o visitante vê o caminho para entrar -->
+  <?php if ($logado): ?>
+    <p>Olá, <strong><?= htmlspecialchars($logado) ?></strong>! · <a href="funcionario.php">Área do funcionário</a> · <a href="funcionario.php?sair=1">Sair</a></p>
+  <?php else: ?>
+    <p>É funcionário? <a href="funcionario.php">Entre</a> para cadastrar produtos.</p>
+  <?php endif; ?>
+
+  <!-- NOVO: o formulário só aparece para o funcionário logado -->
+  <?php if ($logado): ?>
+
   <h2><?= !empty($produto['id']) ? 'Editar produto' : 'Novo produto' ?></h2>
 
   <?php if ($erro): ?>
@@ -38,6 +48,7 @@
       <a href="cadastro.php">Cancelar</a>
     <?php endif; ?>
   </form>
+  <?php endif; ?>
 
   <h2>Produtos (<?= count($produtos) ?>)</h2>
   <ul>
@@ -49,10 +60,12 @@
           <span>📦 sem foto</span>
         <?php endif; ?>
         <?= htmlspecialchars($item['nome']) ?> · R$ <?= number_format($item['preco'], 2, ',', '.') ?>
-        <a href="cadastro.php?editar=<?= $item['id'] ?>">Editar</a>
-        <form method="post" action="cadastro.php" style="display: inline">
-          <button name="excluir" value="<?= $item['id'] ?>">Excluir</button>
-        </form>
+        <?php if ($logado): ?>
+          <a href="cadastro.php?editar=<?= $item['id'] ?>">Editar</a>
+          <form method="post" action="cadastro.php" style="display: inline">
+            <button name="excluir" value="<?= $item['id'] ?>">Excluir</button>
+          </form>
+        <?php endif; ?>
       </li>
     <?php endforeach; ?>
   </ul>

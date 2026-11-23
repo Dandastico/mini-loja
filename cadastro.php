@@ -1,7 +1,16 @@
 <?php
 // cadastro.php: o CONTROLE.
 // Recebe o formulário, pede ao modelo (banco.php) e chama a visão (tela.php).
+// NOVO: a sessão conta quem está logado
+session_start();
 require __DIR__ . '/banco.php';
+
+// NOVO: a tranca. Visitante só olha; mexer (cadastrar, editar, excluir) é com funcionário logado
+$logado = $_SESSION['funcionario'] ?? '';
+if ($logado === '' && ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['editar']))) {
+    header('Location: funcionario.php');
+    exit;
+}
 
 // o vendedor confere a foto antes de pôr na vitrine.
 // Devolve '' quando está tudo certo, ou a frase do problema.
