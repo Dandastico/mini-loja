@@ -3,7 +3,7 @@
 // Recebe o formulário, pede ao modelo (banco.php) e chama a visão (tela.php).
 require __DIR__ . '/banco.php';
 
-// NOVO: o vendedor confere a foto antes de pôr na vitrine.
+// o vendedor confere a foto antes de pôr na vitrine.
 // Devolve '' quando está tudo certo, ou a frase do problema.
 function conferirImagem(array $arquivo): string
 {
@@ -25,7 +25,7 @@ function conferirImagem(array $arquivo): string
     return '';
 }
 
-// NOVO: guarda a foto conferida com um nome inventado pelo sistema e devolve esse nome
+// guarda a foto conferida com um nome inventado pelo sistema e devolve esse nome
 function guardarImagem(array $arquivo): string
 {
     $extensoes = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'webp'];
@@ -41,7 +41,7 @@ function guardarImagem(array $arquivo): string
     return $nome;
 }
 
-// NOVO: tira uma foto da pasta uploads (basename impede sair da pasta)
+// tira uma foto da pasta uploads (basename impede sair da pasta)
 function apagarImagem(string $nome): void
 {
     $caminho = __DIR__ . '/uploads/' . basename($nome);

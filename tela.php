@@ -14,7 +14,7 @@
   <?php if ($erro): ?>
     <p style="color: firebrick"><strong>Foto recusada:</strong> <?= htmlspecialchars($erro) ?></p>
   <?php endif; ?>
-  <!-- NOVO: sem o enctype, o arquivo não viaja (chega só o nome dele) -->
+  <!-- sem o enctype, o arquivo não viaja (chega só o nome dele) -->
   <form method="post" action="cadastro.php" enctype="multipart/form-data">
     <!-- o id escondido diz ao controle qual produto editar (vazio = produto novo) -->
     <input type="hidden" name="id" value="<?= $produto['id'] ?? '' ?>">
