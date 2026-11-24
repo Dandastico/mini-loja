@@ -1,21 +1,7 @@
 # Testes unitários da conferência da foto (foto.php).
 # Cada arquivo usado aqui é gerado pelo próprio teste, numa pasta temporária.
 
-import struct
-import zlib
-
-
-def png_de_1_pixel():
-    """Os bytes de um PNG de verdade, 1x1 pixel vermelho, montado pedaço por pedaço."""
-
-    def pedaco(tipo, dados):
-        # cada pedaço do PNG: tamanho, tipo, dados e o CRC (a conferência) de tipo+dados
-        return struct.pack(">I", len(dados)) + tipo + dados + struct.pack(">I", zlib.crc32(tipo + dados))
-
-    assinatura = b"\x89PNG\r\n\x1a\n"
-    cabecalho = struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0)  # 1x1, 8 bits, cores RGB
-    pixels = zlib.compress(b"\x00\xff\x00\x00")  # linha sem filtro + 1 pixel vermelho
-    return assinatura + pedaco(b"IHDR", cabecalho) + pedaco(b"IDAT", pixels) + pedaco(b"IEND", b"")
+from imagens import png
 
 
 def test_arquivo_acima_de_2_mb_e_recusado(conferir_foto, tmp_path):
@@ -41,6 +27,6 @@ def test_arquivo_de_texto_renomeado_para_jpg_e_recusado(conferir_foto, tmp_path)
 
 def test_png_pequeno_e_valido_e_aceito(conferir_foto, tmp_path):
     foto = tmp_path / "foto.png"
-    foto.write_bytes(png_de_1_pixel())
+    foto.write_bytes(png())
 
     assert conferir_foto(foto) == ""

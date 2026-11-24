@@ -70,13 +70,28 @@ def enviar_por_fora(navegador, loja, pagina, campos):
     )
 
 
-def cadastrar_produto(navegador, loja, nome, preco):
-    """Abre a vitrine (já logado) e cadastra um produto novo com nome e preço, sem foto."""
+def cadastrar_produto(navegador, loja, nome, preco, foto=None):
+    """Abre a vitrine (já logado) e cadastra um produto novo com nome e preço (e a foto, se vier)."""
     navegador.get(f"{loja}/cadastro.php")
     formulario = WebDriverWait(navegador, 10).until(
         EC.visibility_of_element_located((By.XPATH, "//form[.//input[@name='nome']]"))
     )
     formulario.find_element(By.ID, "nome").send_keys(nome)
     formulario.find_element(By.ID, "preco").send_keys(preco)
+    if foto:
+        # o campo de arquivo aceita o caminho do arquivo, como se a pessoa escolhesse na janela
+        formulario.find_element(By.ID, "imagem").send_keys(str(foto))
     formulario.find_element(By.XPATH, ".//button[text()='Cadastrar']").click()
+    esperar_a_resposta(navegador, formulario)
+
+
+def editar_produto(navegador, nome, foto=None):
+    """Na vitrine aberta (já logado), clica em "Editar" no produto e salva, trocando a foto se vier."""
+    navegador.find_element(By.XPATH, f"//ul/li[contains(., '{nome}')]").find_element(By.LINK_TEXT, "Editar").click()
+    formulario = WebDriverWait(navegador, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//h2[text()='Editar produto']/following::form[1]"))
+    )
+    if foto:
+        formulario.find_element(By.ID, "imagem").send_keys(str(foto))
+    formulario.find_element(By.XPATH, ".//button[text()='Salvar alterações']").click()
     esperar_a_resposta(navegador, formulario)
