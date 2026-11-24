@@ -2,3 +2,8 @@ Mini-Loja/
 prog-web-php/
 mini-loja.sqlite
 uploads/
+.venv/
+.scratch/
+.agents/
+.claude/
+skills-lock.json
