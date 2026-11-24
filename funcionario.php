@@ -12,6 +12,11 @@ if (isset($_GET['sair'])) {
     exit;
 }
 
+// a conta de teste: aparece de dica nos campos de entrar, e entrar com os campos vazios usa ela
+// (assim quem avalia o site entra só apertando Enter, sem consultar o banco)
+const CONTA_DE_TESTE_EMAIL = 'teste@loja.com';
+const CONTA_DE_TESTE_SENHA = 'relogio123';
+
 $erro = '';
 $aviso = '';
 
@@ -27,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['senha'] ?? '';
 
     if ($acao === 'entrar') {
+        // os dois campos vazios? entra com a conta de teste das dicas
+        if ($email === '' && $senha === '') {
+            $email = CONTA_DE_TESTE_EMAIL;
+            $senha = CONTA_DE_TESTE_SENHA;
+        }
         // password_verify compara a senha digitada com o hash guardado
         $funcionario = buscarFuncionario($email);
         if ($funcionario && password_verify($senha, $funcionario['senha'])) {

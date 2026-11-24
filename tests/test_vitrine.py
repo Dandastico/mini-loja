@@ -34,3 +34,12 @@ def test_pagina_inicial_mostra_os_produtos_em_grade_com_o_menu_no_topo(navegador
     vitrine = [item.text for item in navegador.find_elements(By.CSS_SELECTOR, "ul li")]
     for produto in ["Arduino Uno · R$ 59,90", "Placa ESP32 · R$ 39,90", "Sensor de temperatura DHT11 · R$ 12,50"]:
         assert any(produto in item for item in vitrine)
+
+
+def test_pagina_inicial_abre_com_o_banner_da_loja(navegador, loja):
+    navegador.get(f"{loja}/")
+
+    banner = navegador.find_element(By.CSS_SELECTOR, "main img.banner")
+    largura = navegador.execute_script("return arguments[0].complete && arguments[0].naturalWidth", banner)
+    assert largura == 687
+    assert "Mini Loja" in banner.get_attribute("alt")

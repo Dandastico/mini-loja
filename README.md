@@ -21,6 +21,7 @@ Os testes automáticos ficam em `tests/` e usam **pytest** (testes unitários) e
 | `funcionario.php` | CONTROLE da área do funcionário (cadastro, entrada e saída) |
 | `tela-funcionario.php` | VISÃO da área do funcionário |
 | `teste.php` | Confere o ambiente (versão do PHP e SQLite) |
+| `imagens/` | As imagens do próprio site, como o banner da página inicial (vão para o Git; as fotos dos produtos ficam em `uploads/`, fora do Git) |
 | `tests/` | Os testes (pytest e Selenium) |
 | `passo-a-passo.md` | O resumo das aulas que constroem a loja |
 

@@ -3,10 +3,11 @@
 
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from passos import cadastrar_funcionario, entrar
+from passos import cadastrar_funcionario, entrar, esperar_a_resposta
 
 pytestmark = pytest.mark.funcional
 
@@ -71,3 +72,20 @@ def test_visitante_que_so_ve_o_entrar_fica_sabendo_quem_cadastra_funcionario_nov
 
     explicacao = navegador.find_element(By.XPATH, "//p[contains(., 'funcionário novo')]")
     assert "logado" in explicacao.text
+
+
+def test_apertar_enter_com_os_campos_vazios_entra_com_a_conta_de_teste_mostrada_nas_dicas(navegador, loja):
+    cadastrar_funcionario(navegador, loja, "Carla Teste", "teste@loja.com", "relogio123")
+    navegador.get(f"{loja}/funcionario.php")
+    email = navegador.find_element(By.ID, "email-entrar")
+    assert email.get_attribute("placeholder") == "teste@loja.com"
+    assert navegador.find_element(By.ID, "senha-entrar").get_attribute("placeholder") == "relogio123"
+
+    formulario = navegador.find_element(By.XPATH, "//form[input[@name='acao' and @value='entrar']]")
+    email.send_keys(Keys.ENTER)
+    esperar_a_resposta(navegador, formulario)
+
+    saudacao = WebDriverWait(navegador, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//p[starts-with(normalize-space(.), 'Olá,')]"))
+    )
+    assert saudacao.find_element(By.TAG_NAME, "strong").text == "Carla Teste"

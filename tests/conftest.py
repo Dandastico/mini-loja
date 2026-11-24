@@ -75,6 +75,8 @@ def app(tmp_path):
     for padrao in ARQUIVOS_DO_APP:
         for arquivo in RAIZ.glob(padrao):
             shutil.copy(arquivo, pasta)
+    # as imagens do próprio site (o banner); as fotos dos produtos ficam em uploads, de fora
+    shutil.copytree(RAIZ / "imagens", pasta / "imagens")
     return pasta
 
 

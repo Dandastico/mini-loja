@@ -20,9 +20,10 @@ $produtos = listarProdutos();
   <?php require __DIR__ . '/topo.php'; ?>
 
   <main class="conteudo">
+    <!-- o banner ocupa o lugar da faixa de boas-vindas; o título continua na página para leitores de tela -->
     <section class="destaque">
-      <h1>Mini Loja</h1>
-      <p class="subtitulo">Relógios Casio para o dia a dia.</p>
+      <h1 class="so-para-leitor-de-tela">Mini Loja</h1>
+      <img class="banner" src="imagens/banner.jpeg" alt="Mini Loja: relógios Casio para o dia a dia">
     </section>
 
     <h2>Produtos (<?= count($produtos) ?>)</h2>

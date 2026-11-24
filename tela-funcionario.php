@@ -25,14 +25,15 @@
     <p class="barra">Olá, <strong><?= htmlspecialchars($logado) ?></strong>! <a href="cadastro.php">Cadastrar produtos</a> · <a href="funcionario.php?sair=1">Sair</a></p>
   <?php else: ?>
     <h2>Entrar</h2>
+    <!-- a conta de teste aparece de dica nos campos; com os dois vazios, é só apertar Enter para entrar com ela -->
     <form class="formulario formulario-estreito" method="post" action="funcionario.php">
       <input type="hidden" name="acao" value="entrar">
 
       <label for="email-entrar">E-mail</label>
-      <input id="email-entrar" name="email" type="email" autocomplete="username" required>
+      <input id="email-entrar" name="email" type="email" autocomplete="username" placeholder="<?= CONTA_DE_TESTE_EMAIL ?>">
 
       <label for="senha-entrar">Senha</label>
-      <input id="senha-entrar" name="senha" type="password" autocomplete="current-password" required>
+      <input id="senha-entrar" name="senha" type="password" autocomplete="current-password" placeholder="<?= CONTA_DE_TESTE_SENHA ?>">
 
       <div class="acoes">
         <button type="submit">Entrar</button>
