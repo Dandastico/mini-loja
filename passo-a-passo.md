@@ -154,6 +154,22 @@ Pré-requisito: a versão 3 da aula 14.
 
 ---
 
+## Testes automáticos (Pytest)
+
+Os testes ficam em `tests/` e são escritos em Python. Eles chamam as funções PHP de verdade
+(o Python roda o `php` na linha de comando), sempre numa **cópia do app numa pasta temporária**,
+com banco próprio: o `mini-loja.sqlite` do projeto nunca é tocado.
+
+Pré-requisitos: Python 3 e o `php` no terminal (`php -v` precisa funcionar).
+O `pdo_sqlite` não precisa estar ligado no `php.ini`: se estiver desligado, os testes ligam só para eles.
+
+1. Criar o ambiente virtual (uma vez só): `python -m venv .venv`
+2. Ativar o ambiente: `source .venv/bin/activate` (no Windows: `.venv\Scripts\activate`)
+3. Instalar as dependências: `pip install -r requirements.txt`
+4. Rodar os testes: `pytest`
+
+---
+
 ## Apêndice: código final de cada arquivo (aula 16, versão 3)
 
 Copiado das abas de código das aulas (`teste.php` vem da aula 12 e não muda depois).
