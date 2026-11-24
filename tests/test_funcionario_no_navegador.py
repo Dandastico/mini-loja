@@ -51,3 +51,23 @@ def test_clicar_em_sair_volta_para_a_tela_de_entrada_sem_ninguem_logado(navegado
     WebDriverWait(navegador, 10).until(EC.visibility_of_element_located((By.ID, "email-entrar")))
     assert navegador.current_url.endswith("/funcionario.php")
     assert not navegador.find_elements(By.XPATH, "//p[starts-with(normalize-space(.), 'Olá,')]")
+
+
+def test_funcionario_logado_chega_ao_cadastro_de_colega_pelo_link_da_vitrine(navegador, loja, funcionario_logado):
+    navegador.get(f"{loja}/cadastro.php")
+
+    navegador.find_element(By.LINK_TEXT, "Cadastrar funcionário").click()
+
+    formulario = WebDriverWait(navegador, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//form[input[@name='acao' and @value='cadastrar']]"))
+    )
+    assert formulario.find_element(By.ID, "nome").is_displayed()
+
+
+def test_visitante_que_so_ve_o_entrar_fica_sabendo_quem_cadastra_funcionario_novo(navegador, loja):
+    cadastrar_funcionario(navegador, loja, "Ana Admin", "ana@loja.com", "senha-secreta")
+
+    navegador.get(f"{loja}/funcionario.php")
+
+    explicacao = navegador.find_element(By.XPATH, "//p[contains(., 'funcionário novo')]")
+    assert "logado" in explicacao.text

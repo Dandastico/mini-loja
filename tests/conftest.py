@@ -18,8 +18,8 @@ from selenium.webdriver.chrome.service import Service
 
 RAIZ = Path(__file__).resolve().parent.parent
 
-# os arquivos do app (o banco e a pasta uploads ficam de fora de propósito)
-ARQUIVOS_DO_APP = ["*.php", "*.html"]
+# os arquivos do app, com a folha de estilo (o banco e a pasta uploads ficam de fora de propósito)
+ARQUIVOS_DO_APP = ["*.php", "*.html", "*.css"]
 
 # roda dentro do php: carrega o modelo, chama a função pedida com os
 # argumentos que chegaram em JSON e devolve o resultado em JSON
@@ -155,7 +155,7 @@ def loja(app, tmp_path):
         prazo = time.monotonic() + 10
         while True:
             try:
-                urllib.request.urlopen(f"{endereco}/index.html", timeout=1)
+                urllib.request.urlopen(f"{endereco}/", timeout=1)
                 break
             except OSError:
                 if servidor.poll() is not None or time.monotonic() > prazo:

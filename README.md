@@ -11,7 +11,9 @@ Os testes automáticos ficam em `tests/` e usam **pytest** (testes unitários) e
 
 | Arquivo | Papel |
 |---|---|
-| `index.html` | Página inicial (só HTML) |
+| `index.php` | Página inicial: a vitrine com os produtos em grade |
+| `topo.php` | O cabeçalho de todas as páginas, com o menu no canto direito |
+| `lista-de-produtos.php` | A grade de cartões dos produtos (usada pela página inicial e pela tela de produtos) |
 | `cadastro.php` | CONTROLE dos produtos: recebe o formulário, pede ao modelo e chama a tela |
 | `banco.php` | MODELO: a conexão com o SQLite e todo o SQL |
 | `foto.php` | A regra que aceita ou recusa a foto enviada |
@@ -72,7 +74,7 @@ Agora abra **http://localhost:8000** no navegador. Para desligar o servidor, ape
 
 ### Conferir o ambiente
 
-Na página inicial, clique em **Testar o ambiente**, ou abra http://localhost:8000/teste.php. Essa página diz duas coisas:
+Abra http://localhost:8000/teste.php (ela não aparece no menu do site, de propósito). Essa página diz duas coisas:
 
 - se a sua versão do PHP já tem a correção de segurança de outubro de 2026;
 - se o SQLite está **ligado**.
@@ -85,19 +87,19 @@ Se aparecer "SQLite: DESLIGADO", volte ao passo anterior. O aviso de "versão an
 
 Não é preciso criar banco nem pasta nenhuma.
 
-- **Banco:** na primeira visita aos produtos, o PHP cria o arquivo `mini-loja.sqlite` com as tabelas e três produtos de exemplo.
+- **Banco:** na primeira visita à loja, o PHP cria o arquivo `mini-loja.sqlite` com as tabelas e três produtos de exemplo.
 - **Fotos:** a pasta `uploads/` nasce quando a primeira foto é enviada.
 
 Os dois ficam de fora do Git (estão no `.gitignore`). Para começar com a loja zerada, desligue o servidor e apague o `mini-loja.sqlite` e a pasta `uploads/`.
 
 ### Entrar na área do funcionário
 
-1. Na página inicial, clique em **Área do funcionário**.
+1. No menu do topo, clique em **Área do funcionário**.
 2. **Com a loja vazia, o primeiro cadastro é livre:** ele é o do administrador. Em **Primeiro acesso: cadastre o administrador**, preencha nome, e-mail e uma senha de **8 caracteres ou mais** e clique em **Cadastrar**.
 3. Na mesma página, em **Entrar**, use o e-mail e a senha que você acabou de cadastrar.
 4. Pronto: você cai direto na vitrine, agora com o formulário de produto novo e os botões **Editar** e **Excluir** em cada produto. A foto é opcional e aceita JPG, PNG ou WEBP de até 2 MB.
 
-Depois do primeiro, só um funcionário logado cadastra outro.
+Depois do primeiro, só um funcionário **logado** cadastra outro: com a conta aberta, clique em **Cadastrar funcionário** na barra do topo da vitrine. Quem não entrou vê só o formulário de entrar e um aviso explicando isso.
 
 ---
 

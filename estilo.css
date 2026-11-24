@@ -1,0 +1,397 @@
+/* estilo.css: o visual da Mini Loja. Uma folha só, usada por todas as páginas.
+   Pensada primeiro para o celular; telas maiores ganham colunas e largura máxima. */
+
+/* ---------- a paleta: cores sóbrias, definidas num lugar só ---------- */
+:root {
+  --fundo: #f4f5f7;          /* cinza bem claro, quase branco */
+  --superficie: #ffffff;     /* cartões e formulários */
+  --borda: #d8dde3;
+  --texto: #1f2933;          /* quase preto, mais suave que o preto puro */
+  --texto-suave: #5b6876;
+  --escuro: #243447;         /* cinza-azulado do cabeçalho */
+  --destaque: #2f6f73;       /* verde-petróleo discreto: links e botões */
+  --destaque-escuro: #245a5d;
+  --erro: #8f2d2d;
+  --erro-fundo: #fbeceb;
+  --sucesso: #2c6b47;
+  --sucesso-fundo: #e7f3ec;
+
+  --raio: 8px;
+  --sombra: 0 1px 3px rgba(31, 41, 51, 0.08);
+}
+
+/* ---------- base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--destaque);
+}
+
+a:hover {
+  color: var(--destaque-escuro);
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+  color: var(--escuro);
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 0.75rem;
+}
+
+/* ---------- cabeçalho e área do conteúdo ---------- */
+.topo {
+  display: flex;
+  flex-wrap: wrap;               /* no celular estreito, o menu desce para a linha de baixo */
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  background: var(--escuro);
+  padding: 0.85rem 1rem;
+}
+
+/* o menu: no canto direito do cabeçalho */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.menu a {
+  display: inline-block;
+  padding: 0.35rem 0;            /* área de toque mais alta, sem aumentar o texto */
+  color: #d6dee6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.marca {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.marca:hover {
+  color: #dfe7ee;
+}
+
+.conteudo {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  margin-top: 0;
+}
+
+/* ---------- botões e links com cara de botão ---------- */
+button,
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;           /* fácil de tocar com o dedo */
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--destaque);
+  border-radius: var(--raio);
+  background: var(--destaque);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover,
+.botao:hover {
+  background: var(--destaque-escuro);
+  border-color: var(--destaque-escuro);
+  color: #ffffff;
+}
+
+button:focus-visible,
+.botao:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(47, 111, 115, 0.35);
+  outline-offset: 2px;
+}
+
+/* botão discreto: contorno, sem fundo */
+.botao-leve {
+  background: transparent;
+  color: var(--destaque);
+}
+
+.botao-leve:hover {
+  background: rgba(47, 111, 115, 0.08);
+  color: var(--destaque-escuro);
+}
+
+/* ação perigosa: vermelho sóbrio, só no contorno */
+.botao-perigo {
+  background: transparent;
+  border-color: var(--erro);
+  color: var(--erro);
+}
+
+.botao-perigo:hover {
+  background: var(--erro-fundo);
+  border-color: var(--erro);
+  color: var(--erro);
+}
+
+.botao-pequeno {
+  min-height: 2.25rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- página inicial: a faixa de boas-vindas ---------- */
+.destaque {
+  padding: 1.5rem 1.25rem;
+  margin-bottom: 0.5rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.destaque h1 {
+  margin-bottom: 0.35rem;
+}
+
+.destaque .subtitulo {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* ---------- avisos ---------- */
+.alerta {
+  padding: 0.75rem 1rem;
+  border-radius: var(--raio);
+  border: 1px solid transparent;
+  border-left-width: 4px;
+}
+
+.alerta-erro {
+  background: var(--erro-fundo);
+  border-color: var(--erro);
+  color: var(--erro);
+}
+
+.alerta-sucesso {
+  background: var(--sucesso-fundo);
+  border-color: var(--sucesso);
+  color: var(--sucesso);
+}
+
+/* ---------- barra de quem está logado (ou do convite para entrar) ---------- */
+.barra {
+  padding: 0.75rem 1rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  color: var(--texto-suave);
+}
+
+/* ---------- formulários: rótulo em cima, campo na largura toda ---------- */
+.formulario {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.formulario label {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.formulario label:first-of-type {
+  margin-top: 0;
+}
+
+.formulario input:not([type="hidden"]) {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: #ffffff;
+  color: var(--texto);
+  font: inherit;
+  font-size: 1rem;               /* 16px: o celular não dá zoom sozinho ao tocar no campo */
+}
+
+.formulario input[type="file"] {
+  padding: 0.45rem;
+}
+
+.formulario input:focus {
+  border-color: var(--destaque);
+}
+
+.formulario small {
+  color: var(--texto-suave);
+}
+
+.formulario .foto-atual {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.6rem 0 0;
+  color: var(--texto-suave);
+}
+
+.formulario .foto-atual img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--borda);
+}
+
+.formulario .acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* formulários curtos (entrar, cadastrar funcionário) não esticam no computador */
+.formulario-estreito {
+  max-width: 28rem;
+}
+
+/* ---------- vitrine: os produtos em cartões ---------- */
+.vitrine {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.cartao-foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;          /* no celular, mais baixa: cabe mais produto na tela */
+  overflow: hidden;              /* sem isso, uma foto grande estica a caixa e os cartões ficam desiguais */
+  background: #eef0f3;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+/* com foto, o fundo é branco: combina com as fotos de produto, que costumam ter fundo branco */
+.cartao-foto:has(img) {
+  background: #ffffff;
+}
+
+.cartao-foto img {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  object-fit: contain;           /* a foto inteira cabe na caixa, sem cortar nem distorcer */
+}
+
+.cartao-info {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.cartao-acoes {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+}
+
+.cartao-acoes form {
+  margin: 0;
+}
+
+/* ---------- página de teste do ambiente ---------- */
+.conferencia {
+  margin: 0 0 0.75rem;
+}
+
+/* ---------- telas maiores ---------- */
+@media (min-width: 40rem) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .topo {
+    padding: 1rem 1.5rem;
+  }
+
+  .conteudo {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .destaque {
+    padding: 2.25rem 2rem;
+  }
+
+  .formulario-produto {
+    max-width: 36rem;
+  }
+
+  .cartao-foto {
+    aspect-ratio: 4 / 3;
+  }
+}

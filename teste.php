@@ -15,15 +15,22 @@ $sqliteOk = extension_loaded('pdo_sqlite');
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Teste do ambiente</title>
+  <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
+  <?php require __DIR__ . '/topo.php'; ?>
+
+  <main class="conteudo">
   <h1>Teste do ambiente</h1>
 
-  <p>PHP <?= PHP_VERSION ?>:
+  <!-- cada conferência ganha a cor de certo (verde) ou de problema (vermelho) -->
+  <p class="alerta conferencia <?= $phpOk ? 'alerta-sucesso' : 'alerta-erro' ?>">PHP <?= PHP_VERSION ?>:
     <?= $phpOk ? 'atualizado, com a correção do PHP2Shell.' : 'versão antiga, sem a correção de outubro de 2026. Dá para estudar: só clique em Stop no Apache no fim da aula.' ?></p>
 
-  <p>SQLite:
+  <p class="alerta conferencia <?= $sqliteOk ? 'alerta-sucesso' : 'alerta-erro' ?>">SQLite:
     <?= $sqliteOk ? 'ligado. Pode começar!' : 'DESLIGADO. Ligue o pdo_sqlite no php.ini (veja o passo a passo da aula).' ?></p>
+  </main>
 </body>
 </html>

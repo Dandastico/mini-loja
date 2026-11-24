@@ -48,7 +48,7 @@ def enviar_por_fora(navegador, loja, pagina, campos):
 
     Monta um formulário escondido na página aberta (com os campos pedidos) e envia.
     """
-    navegador.get(f"{loja}/index.html")
+    navegador.get(f"{loja}/")
     navegador.execute_script(
         """
         const [acao, campos] = arguments;
