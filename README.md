@@ -160,13 +160,26 @@ Rode só os funcionais:
 pytest -m funcional
 ```
 
-Por padrão, o navegador roda **escondido** (headless). Para **ver** o navegador trabalhando:
+Um arquivo só também funciona: `pytest -m funcional tests/test_foto_no_navegador.py`.
+
+#### Ver o navegador trabalhando: `--com-janela`
+
+**Por padrão, nenhuma janela abre.** O Chrome roda escondido (o modo *headless*): os testes passam, mas você não vê nada na tela. Isso é de propósito, porque assim os testes rodam mais rápido e não atrapalham o que você está fazendo.
+
+Para **ver** o navegador abrir a loja e clicar sozinho, acrescente `--com-janela`:
 
 ```bash
 pytest -m funcional --com-janela
+pytest -m funcional --com-janela tests/test_produto_no_navegador.py   # um arquivo só, mais fácil de acompanhar
 ```
 
-Um arquivo só também funciona: `pytest -m funcional tests/test_foto_no_navegador.py`.
+O que esperar:
+
+- **A janela é nova, separada do navegador que você já tem aberto.** O Selenium abre o Chromium (ou o Chrome) instalado no computador, mas com um perfil limpo e temporário: sem as suas abas, logins ou extensões. Assim os testes não mexem nos seus dados, e os seus dados não atrapalham os testes.
+- **Ela abre e fecha rápido.** Cada teste abre a própria janela e fecha no fim, e os passos levam frações de segundo. Rode um arquivo só, ou um teste só com `-k`, para conseguir acompanhar.
+- **Se o teste falhar, a janela também fecha.** Para descobrir em que tela ele parou, leia a mensagem de erro do pytest.
+
+> Quer só navegar pela loja você mesmo? Isso não é com o Selenium: suba o servidor como na seção 1 e abra http://localhost:8000 no seu navegador de sempre.
 
 **Não precisa deixar o servidor da seção 1 rodando:** cada teste funcional sobe o próprio servidor PHP, numa porta livre.
 
@@ -189,4 +202,5 @@ Cada teste ganha uma **cópia do app numa pasta temporária**, e o pytest apaga 
 | `This version of ChromeDriver only supports Chrome version ...` | O chromedriver e o navegador estão em versões diferentes. Atualize os dois juntos. |
 | `Unable to obtain driver for chrome` / chromedriver não encontrado | Instale o chromedriver e confira se `chromedriver --version` responde no terminal. |
 | `o servidor PHP não respondeu` | O PHP não subiu. A mensagem traz o log do servidor; rode `php -m` para conferir se o PHP funciona. |
-| Teste funcional falha sem motivo aparente | Rode de novo com `--com-janela` para ver em que tela ele parou. |
+| Teste funcional falha sem motivo aparente | Rode só esse teste de novo com `--com-janela` (por exemplo `pytest -m funcional --com-janela -k nome_do_teste`) e acompanhe a janela até ela fechar. |
+| Rodei os funcionais e nenhuma janela abriu | É o normal: sem `--com-janela`, o Chrome roda escondido. |
