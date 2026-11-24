@@ -194,3 +194,17 @@ def navegador(request):
     nav = webdriver.Chrome(options=opcoes, service=servico)
     yield nav
     nav.quit()
+
+
+@pytest.fixture
+def funcionario_logado(navegador, loja):
+    """O navegador já com um funcionário logado (o administrador da loja vazia).
+
+    Devolve os dados dele. Exemplo: def test_algo(navegador, funcionario_logado): ...
+    """
+    from passos import cadastrar_funcionario, entrar
+
+    dados = {"nome": "Ana Admin", "email": "ana@loja.com", "senha": "senha-secreta"}
+    cadastrar_funcionario(navegador, loja, dados["nome"], dados["email"], dados["senha"])
+    entrar(navegador, loja, dados["email"], dados["senha"])
+    return dados
